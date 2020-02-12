@@ -84,7 +84,7 @@ int main(void)
     int prev = -1;
 
     // Create a way to track the currentNote
-    int currentNote = 0;
+    int currentNote = -1;
 
     // Random Seed
     srand(time(0));
@@ -95,8 +95,11 @@ int main(void)
         // // Play the scaleNotes in scale order
         // currentNote = currentNote % scaleNotesLength;
 
-        // Play notes within this scale randomly
-        currentNote = rand() % 8;
+        // Play notes within this scale randomly, without repeating previous note
+        while (prev == currentNote) {
+            currentNote = rand() % 8;
+        }
+        prev = currentNote;
 
         // Skip empty portions of the scale array
         if (scaleNotes[currentNote] != 0) {
